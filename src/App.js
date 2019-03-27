@@ -1,28 +1,51 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import useInterval from "@use-hooks/interval";
+import { Flex, Text, Button, Box } from "rebass";
+import randomFlatColors from "random-flat-colors";
+import hello from "hello-color";
+import styled from "styled-components";
+import Title from "react-simple-title";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+const pomoLength = 100;
+const color = hello(randomFlatColors());
+
+const App = props => {
+  let [active, setActive] = useState(false);
+  let [count, setCount] = useState(pomoLength);
+
+  useInterval(() => {
+    if (active && count > 0) {
+      setCount(count - 1);
+    } else {
+      setActive(false);
+      setCount(pomoLength);
+    }
+  }, 1000);
+
+  return (
+    <Flex
+      width="100vw"
+      justifyContent="center"
+      alignItems="center"
+      flexDirection="column"
+      bg={color.base}
+      style={{
+        height: "100vh"
+      }}
+    >
+      <Title>{count}</Title>
+      <Text color={color.color} fontSize={6} fontWeight="bold">
+        {count}
+      </Text>
+      <Button
+        onClick={() => setActive(!active)}
+        color={color.base}
+        bg={color.color}
+      >
+        {active ? "Stop" : "Go"}
+      </Button>
+    </Flex>
+  );
+};
 
 export default App;
