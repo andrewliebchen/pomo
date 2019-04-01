@@ -11,7 +11,7 @@ const Root = styled.div`
 const Fill = styled.div`
   height: inherit;
   background-color: ${props => props.color};
-  transition: 0.9s ease-in-out;
+  transition: 1s linear;
 `;
 
 const Progress = props => (
