@@ -9,7 +9,7 @@ import doneSound from "./done.mp3";
 
 const audio = new Audio(doneSound);
 const options = {
-  length: 10,
+  length: 1200,
   ...hello(randomFlatColors())
 };
 
