@@ -5,6 +5,7 @@ import randomFlatColors from "random-flat-colors";
 import hello from "hello-color";
 import Countdown from "./Countdown";
 import Progress from "./Progress";
+import Wrapper from "./Wrapper";
 
 const pomoLength = 10;
 const color = hello(randomFlatColors());
@@ -23,20 +24,10 @@ const App = props => {
   }, 1000);
 
   return (
-    <Flex
-      width="100vw"
-      justifyContent="center"
-      alignItems="center"
-      flexDirection="column"
-      bg={color.base}
-      onClick={() => setActive(!active)}
-      style={{
-        height: "100vh"
-      }}
-    >
+    <Wrapper bg={color.base} onClick={() => setActive(!active)}>
       <Countdown count={count} color={color.color} />
       <Progress count={count} color={color.color} length={pomoLength} />
-    </Flex>
+    </Wrapper>
   );
 };
 

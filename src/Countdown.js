@@ -6,6 +6,7 @@ import { Text } from "rebass";
 
 const Numbers = styled(Text)`
   font-feature-settings: "tnum";
+  pointer-events: none;
 `;
 
 const Countdown = props => {
@@ -16,7 +17,7 @@ const Countdown = props => {
   return (
     <div>
       <Title>{formatted}</Title>
-      <Numbers color={props.color} fontSize={6} fontWeight="bold">
+      <Numbers color={props.color} fontSize={100} fontWeight={800}>
         {formatted}
       </Numbers>
     </div>
