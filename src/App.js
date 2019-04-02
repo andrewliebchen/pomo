@@ -7,75 +7,110 @@ import useInterval from "@use-hooks/interval";
 import Wrapper from "./Wrapper";
 import doneSound from "./done.mp3";
 import styled from "styled-components";
-import { Flex, Text, Card, Box } from "rebass";
+import { Flex } from "rebass";
+import Block from "./Block";
 
 const audio = new Audio(doneSound);
 const options = {
-  length: 1200,
+  intervals: [6, 3, 2, 1, 1],
   ...hello(randomFlatColors())
 };
 
 const App = props => {
-  let [active, setActive] = useState(false);
-  let [count, setCount] = useState(options.length);
+  let [active, setActive] = useState(true);
+  let [interval, setInterval] = useState(0);
+  let [count, setCount] = useState(options.intervals[0]);
 
   useInterval(() => {
     if (active && count > 0) {
       setCount(count - 1);
     } else {
-      active && audio.play();
-      setActive(false);
-      setCount(options.length);
+      // audio.play();
+      setInterval(interval + 1);
+      setCount(options.intervals[interval + 1]);
     }
   }, 1000);
 
+  console.log(count / options.intervals[interval]);
+
   return (
     <Flex width={1} style={{ height: "100vh" }} p={2}>
-      <Flex
+      <Block
         width={1 / 2}
-        justifyContent="center"
-        alignItems="stretch"
-        style={{ border: "2px solid" }}
-        m={2}
+        index={0}
+        count={count}
+        interval={interval}
+        {...options}
       >
-        <Text alignSelf="center">10:00</Text>
-      </Flex>
+        <Countdown count={interval === 0 ? count : 0} {...options} />
+      </Block>
       <Flex width={1 / 2} flexDirection="column">
-        <Flex
-          justifyContent="center"
-          alignItems="stretch"
-          style={{ height: "50vh", border: "2px solid" }}
-          m={2}
+        <Block
+          index={1}
+          count={count}
+          interval={interval}
+          {...options}
+          style={{ height: "50vh" }}
         >
-          <Text alignSelf="center">5:00</Text>
-        </Flex>
+          <Countdown
+            count={
+              interval === 1 ? count : interval > 1 ? 0 : options.intervals[1]
+            }
+            {...options}
+          />
+        </Block>
         <Flex width={1} style={{ height: "50vh" }}>
-          <Flex
+          <Block
+            index={2}
+            count={count}
+            interval={interval}
             width={1 / 2}
-            justifyContent="center"
-            alignItems="stretch"
-            style={{ border: "2px solid" }}
-            m={2}
+            {...options}
           >
-            <Text alignSelf="center">2:30</Text>
-          </Flex>
+            <Countdown
+              count={
+                interval === 2 ? count : interval > 2 ? 0 : options.intervals[2]
+              }
+              {...options}
+            />
+          </Block>
           <Flex width={1 / 2} flexDirection="column">
-            <Flex
-              justifyContent="center"
-              alignItems="center"
-              style={{ height: "25vh", border: "2px solid" }}
-              m={2}
+            <Block
+              index={3}
+              count={count}
+              interval={interval}
+              {...options}
+              style={{ height: "25vh" }}
             >
-              <Text>1:15</Text>
-            </Flex>
-            <Flex
-              justifyContent="center"
-              alignItems="center"
-              style={{ height: "25vh", border: "2px solid" }}
-              m={2}
+              <Countdown
+                count={
+                  interval === 3
+                    ? count
+                    : interval > 3
+                    ? 0
+                    : options.intervals[3]
+                }
+                {...options}
+              />
+            </Block>
+            <Block
+              index={4}
+              count={count}
+              interval={interval}
+              {...options}
+              style={{ height: "25vh" }}
             >
-              <Text>1:15</Text>
-            </Flex>
+              <Countdown
+                count={
+                  interval === 4
+                    ? count
+                    : interval > 4
+                    ? 0
+                    : options.intervals[4]
+                }
+                {...options}
+              />
+            </Block>
           </Flex>
         </Flex>
       </Flex>
