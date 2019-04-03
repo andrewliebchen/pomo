@@ -4,30 +4,25 @@ import styled from "styled-components";
 import Countdown from "./Countdown";
 
 const Root = styled(Flex)`
-  justify-content: center;
-  align-items: center;
   position: relative;
 `;
 
 const Background = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background-color: ${props => props.base};
-  transition: 1s linear;
+  bottom: 0;
+  left: 0;
   opacity: 0;
-`;
-
-const Children = styled.div`
-  position: relative;
-  z-index: 1;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 1s linear;
 `;
 
 const Block = props => {
+  const isActive = props.interval === props.index;
+
   let opacity = 0;
-  if (props.interval === props.index) {
+  if (isActive) {
     opacity = 1 - props.count / props.intervals[props.interval];
   }
   if (props.interval > props.index) {
@@ -35,9 +30,9 @@ const Block = props => {
   }
 
   return (
-    <Root {...props}>
+    <Root justifyContent="center" alignItems="center" {...props}>
       <Background base={props.base} style={{ opacity: opacity }} />
-      {props.interval === props.index && <Countdown {...props} />}
+      {isActive && <Countdown {...props} />}
     </Root>
   );
 };

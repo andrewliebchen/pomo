@@ -5,8 +5,10 @@ import useInterval from "@use-hooks/interval";
 import doneSound from "./done.mp3";
 import { Flex } from "rebass";
 import Block from "./Block";
+import Wrapper from "./Wrapper";
 
 const audio = new Audio(doneSound);
+
 const options = {
   intervals: [10, 6, 4, 2, 2],
   ...hello(randomFlatColors())
@@ -17,6 +19,7 @@ const App = props => {
   let [interval, setInterval] = useState(0);
   let [count, setCount] = useState(options.intervals[0]);
 
+  // TODO: Make active work...
   useInterval(() => {
     if (active && count > 0) {
       setCount(count - 1);
@@ -27,52 +30,52 @@ const App = props => {
     }
   }, 1000);
 
-  console.log(count / options.intervals[interval]);
-
   return (
-    <Flex width={1}>
-      <Block
-        width={1 / 2}
-        index={0}
-        count={count}
-        interval={interval}
-        {...options}
-      />
-      <Flex width={1 / 2} flexDirection="column">
+    <Wrapper color={options.color} onClick={() => setActive(!active)}>
+      <Flex width={1}>
         <Block
-          index={1}
           count={count}
+          index={0}
           interval={interval}
+          width={1 / 2}
           {...options}
-          style={{ height: "50vh" }}
         />
-        <Flex width={1} style={{ height: "50vh" }}>
+        <Flex width={1 / 2} flexDirection="column">
           <Block
-            index={2}
             count={count}
+            index={1}
             interval={interval}
-            width={1 / 2}
+            style={{ height: "50vh" }}
             {...options}
           />
-          <Flex width={1 / 2} flexDirection="column">
+          <Flex width={1} style={{ height: "50vh" }}>
             <Block
-              index={3}
               count={count}
+              index={2}
               interval={interval}
+              width={1 / 2}
               {...options}
-              style={{ height: "25vh" }}
             />
-            <Block
-              index={4}
-              count={count}
-              interval={interval}
-              {...options}
-              style={{ height: "25vh" }}
-            />
+            <Flex width={1 / 2} flexDirection="column">
+              <Block
+                count={count}
+                index={3}
+                interval={interval}
+                style={{ height: "25vh" }}
+                {...options}
+              />
+              <Block
+                count={count}
+                index={4}
+                interval={interval}
+                style={{ height: "25vh" }}
+                {...options}
+              />
+            </Flex>
           </Flex>
         </Flex>
       </Flex>
-    </Flex>
+    </Wrapper>
   );
 };
 
