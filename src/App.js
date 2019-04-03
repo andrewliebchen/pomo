@@ -1,18 +1,15 @@
 import Countdown from "./Countdown";
 import hello from "hello-color";
-import Progress from "./Progress";
 import randomFlatColors from "random-flat-colors";
 import React, { useState } from "react";
 import useInterval from "@use-hooks/interval";
-import Wrapper from "./Wrapper";
 import doneSound from "./done.mp3";
-import styled from "styled-components";
 import { Flex } from "rebass";
 import Block from "./Block";
 
 const audio = new Audio(doneSound);
 const options = {
-  intervals: [6, 3, 2, 1, 1],
+  intervals: [10, 6, 4, 2, 2],
   ...hello(randomFlatColors())
 };
 
@@ -42,7 +39,7 @@ const App = props => {
         interval={interval}
         {...options}
       >
-        <Countdown count={interval === 0 ? count : 0} {...options} />
+        {interval === 0 && <Countdown>{count}</Countdown>}
       </Block>
       <Flex width={1 / 2} flexDirection="column">
         <Block
@@ -52,12 +49,7 @@ const App = props => {
           {...options}
           style={{ height: "50vh" }}
         >
-          <Countdown
-            count={
-              interval === 1 ? count : interval > 1 ? 0 : options.intervals[1]
-            }
-            {...options}
-          />
+          {interval === 1 && <Countdown>{count}</Countdown>}
         </Block>
         <Flex width={1} style={{ height: "50vh" }}>
           <Block
@@ -67,12 +59,7 @@ const App = props => {
             width={1 / 2}
             {...options}
           >
-            <Countdown
-              count={
-                interval === 2 ? count : interval > 2 ? 0 : options.intervals[2]
-              }
-              {...options}
-            />
+            {interval === 2 && <Countdown>{count}</Countdown>}
           </Block>
           <Flex width={1 / 2} flexDirection="column">
             <Block
@@ -82,16 +69,7 @@ const App = props => {
               {...options}
               style={{ height: "25vh" }}
             >
-              <Countdown
-                count={
-                  interval === 3
-                    ? count
-                    : interval > 3
-                    ? 0
-                    : options.intervals[3]
-                }
-                {...options}
-              />
+              {interval === 3 && <Countdown>{count}</Countdown>}
             </Block>
             <Block
               index={4}
@@ -100,16 +78,7 @@ const App = props => {
               {...options}
               style={{ height: "25vh" }}
             >
-              <Countdown
-                count={
-                  interval === 4
-                    ? count
-                    : interval > 4
-                    ? 0
-                    : options.intervals[4]
-                }
-                {...options}
-              />
+              {interval === 4 && <Countdown>{count}</Countdown>}
             </Block>
           </Flex>
         </Flex>
