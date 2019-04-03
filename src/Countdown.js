@@ -6,11 +6,13 @@ import { format } from "./utils";
 const Root = styled(Text)`
   font-feature-settings: "tnum";
   pointer-events: none;
+  position: relative;
+  z-index: 1;
 `;
 
 const Countdown = props => (
-  <Root color={props.color} fontSize={5} fontWeight={800} alignSelf="center">
-    {format(props.children)}
+  <Root color={props.base} fontSize={5} fontWeight={800} alignSelf="center">
+    {format(props.count)}
   </Root>
 );
 
